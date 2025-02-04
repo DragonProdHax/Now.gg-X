@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-const nggUrl = 'https://math.prodigygame.com';
+const nggUrl = 'https://video.link/';
 
 const proxy = createProxyMiddleware({
   target: nggUrl,
