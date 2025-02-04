@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-const nggUrl = 'https://pxi-fusion.com';
+const nggUrl = 'https://classroom6x.gitlab.io/';
 
 const proxy = createProxyMiddleware({
   target: nggUrl,
