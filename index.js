@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-const nggUrl = 'https://tiktok.com';
+const nggUrl = 'https://youtube.com/';
 
 const proxy = createProxyMiddleware({
   target: nggUrl,
