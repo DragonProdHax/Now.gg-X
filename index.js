@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-const nggUrl = 'https://www.youtubeunblocked.live/';
+const nggUrl = 'https://schoprox.com/';
 
 const proxy = createProxyMiddleware({
   target: nggUrl,
