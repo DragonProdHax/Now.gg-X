@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-const nggUrl = 'https://games.crazygames.com/en_US/jump-guys/index.html?v=1.320';
+const nggUrl = 'https://algebra.learnnexus.one/';
 
 const proxy = createProxyMiddleware({
   target: nggUrl,
