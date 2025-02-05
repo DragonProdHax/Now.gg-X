@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-const nggUrl = 'https://schoprox.com/__cpi.php?s=UkQ2YXlSaWJuc3ZoeGR2dG04WW9LaVI4SHpUSmNUS1RKbFRwL0hDcDlkeUtlRUNMMGxXR2lselg3NjAxcG4wQVlhNkIycjNBdllDWEVaek9YTThWUkQvdUY2OENDdjVNUzhGNHIvTXZVMjA9&r=aHR0cHM6Ly9zY2hvcHJveC5jb20vP19fY3BvPWFIUjBjSE02THk5M2QzY3VlVzkxZEhWaVpTNWpiMjA%3D&__cpo=1';
+const nggUrl = 'https://games.crazygames.com/en_US/jump-guys/index.html?v=1.320';
 
 const proxy = createProxyMiddleware({
   target: nggUrl,
