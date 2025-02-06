@@ -1,8 +1,7 @@
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const app = express();
-
 const nggUrl = 'https://algebra.learnnexus.one/';
 
 const proxy = createProxyMiddleware({
@@ -10,19 +9,28 @@ const proxy = createProxyMiddleware({
   changeOrigin: true,
   secure: true,
   logLevel: 'debug',
-  router: function(req) {
-    if (req.headers.host === 'mathsspot.com') {
-      req.headers['X-Forwarded-For'] = ''; 
-      req.headers['X-Real-IP'] = '';
-      req.headers['Via'] = '';
-    }
-    return nggUrl;
+  selfHandleResponse: true, // Enable response modification
+  onProxyRes: (proxyRes, _, res) => {
+    let body = '';
+
+    proxyRes.on('data', (chunk) => {
+      body += chunk.toString();
+    });
+
+    proxyRes.on('end', () => {
+      if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
+        // Inject alert script into HTML response
+        body = body.replace('</body>', '<script>alert("hi")</script></body>');
+      }
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
+      res.end(body);
+    });
   }
 });
 
 app.use('/', proxy);
 
-const port = process.env.PORT || 443;
+const port = process.env.PORT || 7892;
 app.listen(port, () => {
   console.log(`CybriaGG is running on port ${port}`);
 });
