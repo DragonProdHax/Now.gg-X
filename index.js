@@ -1,7 +1,8 @@
-import express from 'express';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
+
 const nggUrl = 'https://embed.su/';
 
 const proxy = createProxyMiddleware({
@@ -9,28 +10,19 @@ const proxy = createProxyMiddleware({
   changeOrigin: true,
   secure: true,
   logLevel: 'debug',
-  selfHandleResponse: true, // Enable response modification
-  onProxyRes: (proxyRes, _, res) => {
-    let body = '';
-
-    proxyRes.on('data', (chunk) => {
-      body += chunk.toString();
-    });
-
-    proxyRes.on('end', () => {
-      if (proxyRes.headers['content-type'] && proxyRes.headers['content-type'].includes('text/html')) {
-        // Inject alert script into HTML response
-        body = body.replace('</body>', '<script>alert("hi")</script></body>');
-      }
-      res.writeHead(proxyRes.statusCode, proxyRes.headers);
-      res.end(body);
-    });
+  router: function(req) {
+    if (req.headers.host === 'mathsspot.com') {
+      req.headers['X-Forwarded-For'] = ''; 
+      req.headers['X-Real-IP'] = '';
+      req.headers['Via'] = '';
+    }
+    return nggUrl;
   }
 });
 
 app.use('/', proxy);
 
-const port = process.env.PORT || 7892;
+const port = process.env.PORT || 443;
 app.listen(port, () => {
   console.log(`CybriaGG is running on port ${port}`);
 });
