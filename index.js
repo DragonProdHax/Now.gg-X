@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-const nggUrl = 'https://embed.su/';
+const nggUrl = 'https://going-to-outer-space.onrender.com/';
 
 const proxy = createProxyMiddleware({
   target: nggUrl,
